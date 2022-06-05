@@ -1,0 +1,35 @@
+{
+  "name": "events-tracker",
+  "version": "1.0.0",
+  "description": "Frontend Actions Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config ./index.js",
+    "start:dev": "nodemon -r dotenv/config ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IovlevYuliy/events-tracker.git"
+  },
+  "keywords": [
+    "tracker",
+    "job-test",
+    "js"
+  ],
+  "author": "Iovlev Yuliy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IovlevYuliy/events-tracker/issues"
+  },
+  "homepage": "https://github.com/IovlevYuliy/events-tracker#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
