@@ -1,16 +1,24 @@
 class Tracker {
     SENDING_TIMEOUT_MS = 1000;
     SENDING_THRESHOLD = 3;
-    API_URL = '/track';
+    API_URL = "/track";
 
     constructor() {
         this.buffer = [];
         this.senderTimerId = setTimeout(() => this.send(), this.SENDING_TIMEOUT_MS);
+
+        this.bindListener();
+    }
+
+    bindListener() {
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "hidden" && this.buffer.length > 0) {
+                navigator.sendBeacon(this.API_URL, JSON.stringify(this.buffer));
+            }
+        });
     }
 
     async send() {
-        console.log('send', this.buffer);
-
         if (this.senderTimerId) {
             clearTimeout(this.senderTimerId);
         }
@@ -25,9 +33,9 @@ class Tracker {
 
         try {
             await fetch(this.API_URL, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(eventsForSending),
             });
@@ -43,7 +51,7 @@ class Tracker {
             tags,
             url: window.location.href,
             title: document.title,
-            ts: new Date(),
+            ts: new Date().toLocaleString({}, { hour12: false, timeZoneName: "short" }),
         });
 
         if (this.buffer.length >= this.SENDING_THRESHOLD) {
